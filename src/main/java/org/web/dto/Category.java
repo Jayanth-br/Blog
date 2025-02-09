@@ -1,11 +1,16 @@
 package org.web.dto;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Category {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(unique = true,nullable = false, name = "name")
     private String name;
     @OneToMany(mappedBy = "category")
     private List<Post> posts;

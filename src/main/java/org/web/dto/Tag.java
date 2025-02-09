@@ -1,11 +1,15 @@
 package org.web.dto;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Tag {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true, nullable = false)
     private String name;
     @ManyToMany(mappedBy = "tags")
     private List<Post> posts;

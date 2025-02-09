@@ -5,17 +5,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true, nullable = false)
     private String title;
+    @Column(unique = true, nullable = false)
     private String content;
     private String picture;
-    private Date createdOn;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User createdBy;
+    private Date createdOn;
     private Date updatedOn;
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;

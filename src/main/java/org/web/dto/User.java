@@ -1,18 +1,29 @@
 package org.web.dto;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true, nullable = false)
     private String name;
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(unique = true, nullable = false)
     private String password;
     private String bio;
     private String profilePicture;
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
+    @OneToMany(mappedBy = "createdBy")
+    private List<Post> createdBy;
+    private Date createdOn;
+    private Date updatedOn;
 
     public long getId() {
         return id;
@@ -68,5 +79,29 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<Post> getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(List<Post> createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

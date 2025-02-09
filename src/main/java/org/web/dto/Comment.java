@@ -1,12 +1,13 @@
 package org.web.dto;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
+@Entity
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String content;
     private Date createdOn;
@@ -16,7 +17,7 @@ public class Comment {
     private User user;
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private List<Post> post;
+    private Post post;
 
     public long getId() {
         return id;
@@ -42,11 +43,11 @@ public class Comment {
         this.user = user;
     }
 
-    public List<Post> getPost() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPost(List<Post> post) {
+    public void setPost(Post post) {
         this.post = post;
     }
 
