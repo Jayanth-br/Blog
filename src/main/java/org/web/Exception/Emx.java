@@ -11,4 +11,10 @@ public final class Emx{
         }
     }
 
+    public static void throwIfPasswordNotValid(String content, String errorMessage){
+        if(content == null || content.trim().length() < 8){
+            throw new ValidationException(errorMessage);
+        }
+    }
+
 }

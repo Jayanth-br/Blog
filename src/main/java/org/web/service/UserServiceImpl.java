@@ -10,7 +10,6 @@ import org.web.Exception.ValidationException;
 import org.web.dto.User;
 import org.web.repository.UserRepository;
 import org.web.response.Response;
-
 import java.util.Date;
 
 @Service
@@ -25,16 +24,30 @@ public class UserServiceImpl implements UserService{
         try{
             Emx.throwIfEmpty(user.getName(), "User Name can't be empty!");
             Emx.throwIfEmpty(user.getEmail(), "Email Id can't be empty!");
-            Emx.throwIfEmpty(user.getPassword(), "Password can't be empty!");
+            Emx.throwIfPasswordNotValid(user.getPassword(), "Password can't be empty & must have 8 characters!");
             user.setCreatedOn(new Date());
             user.setUpdatedOn(new Date());
-            user = userRepo.createUser(user);
-            user = userRepo.findById(user.getId());
+            user = userRepo.save(user);
             Response response = new Response(true, user, HttpStatus.CREATED.value());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (ValidationException e){
             Response errorRes = new Response(false, e.getMessage(), HttpStatus.BAD_REQUEST.value());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorRes);
+        }
+    }
+
+    public ResponseEntity<Response> updateUser(User user){
+        try{
+            Emx.throwIfEmpty(user.getName(), "User Name can't be empty!");
+            Emx.throwIfEmpty(user.getEmail(), "Email Id can't be empty!");
+            Emx.throwIfPasswordNotValid(user.getPassword(), "Password can't be empty & must have 8 characters!");
+            user.setUpdatedOn(new Date());
+            user = userRepo.save(user);
+            Response response = new Response(true, user, HttpStatus.OK.value());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }catch (ValidationException e){
+            Response errResponse = new Response(false, e.getMessage(), HttpStatus.BAD_REQUEST.value());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errResponse);
         }
     }
 }

@@ -8,4 +8,6 @@ public interface UserService {
 
     public ResponseEntity<Response> createUser(User user);
 
+    public ResponseEntity<Response> updateUser(User user);
+
 }
