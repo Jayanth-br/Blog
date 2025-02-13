@@ -17,4 +17,8 @@ public final class Emx{
         }
     }
 
+    public static void throwIfAlreadyExists(boolean exist, String errorMessage){
+        if(exist) throw new ValidationException(errorMessage);
+    }
+
 }
