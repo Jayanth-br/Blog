@@ -23,8 +23,8 @@ public class UserController {
         return userService.createUser(user, profilePicture);
     }
 
-    @PostMapping("/update")
-    private ResponseEntity<Response> updateUser(@RequestBody User user){
-        return userService.updateUser(user);
+    @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    private ResponseEntity<Response> updateUser(@RequestPart("user") User user, @RequestPart("profilePicture") MultipartFile profilePicture) throws IOException {
+        return userService.updateUser(user, profilePicture);
     }
 }

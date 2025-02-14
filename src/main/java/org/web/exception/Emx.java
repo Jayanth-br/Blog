@@ -1,4 +1,4 @@
-package org.web.Exception;
+package org.web.exception;
 
 public final class Emx{
 

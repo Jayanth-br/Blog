@@ -10,6 +10,6 @@ public interface UserService {
 
     public ResponseEntity<Response> createUser(User user, MultipartFile profilePicture) throws IOException;
 
-    public ResponseEntity<Response> updateUser(User user);
+    public ResponseEntity<Response> updateUser(User user, MultipartFile profilePicture) throws IOException;
 
 }
