@@ -12,4 +12,6 @@ public interface UserService {
 
     public ResponseEntity<Response> updateUser(User user, MultipartFile profilePicture) throws IOException;
 
+    public ResponseEntity<Response> findUserById(long id);
+
 }

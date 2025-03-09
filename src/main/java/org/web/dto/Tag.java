@@ -1,5 +1,7 @@
 package org.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Tag {
     @Column(unique = true, nullable = false)
     private String name;
     @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
     private List<Post> posts;
 
     public long getId() {

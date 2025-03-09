@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.unit.DataSize;
 
 @Configuration
-@ConfigurationProperties(prefix = "upload")
-public class UploadProperties {
+@ConfigurationProperties(prefix = "user.upload")
+public class UserUploadProperties {
 
     private String directory;
     private DataSize maxFileSize;

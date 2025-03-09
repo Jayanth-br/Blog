@@ -1,5 +1,7 @@
 package org.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class Category {
     @Column(unique = true,nullable = false, name = "name")
     private String name;
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Post> posts;
 
     public long getId() {

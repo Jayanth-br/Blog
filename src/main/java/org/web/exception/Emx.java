@@ -21,4 +21,10 @@ public final class Emx{
         if(exist) throw new ValidationException(errorMessage);
     }
 
+    public static void throwIfNullOrZero(Long content, String errorMessage){
+        if(content == null || content <= 0) {
+            throw new ValidationException(errorMessage);
+        }
+    }
+
 }

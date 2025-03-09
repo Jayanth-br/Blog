@@ -1,5 +1,7 @@
 package org.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,9 +16,11 @@ public class Comment {
     private Date updatedOn;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private Post post;
 
     public long getId() {

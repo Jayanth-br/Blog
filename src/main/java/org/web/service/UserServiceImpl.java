@@ -12,7 +12,7 @@ import org.web.dto.User;
 import org.web.repository.UserRepository;
 import org.web.response.Response;
 import org.web.upload.UploadFactory;
-import org.web.upload.UploadProperties;
+import org.web.upload.UserUploadProperties;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepo;
 
     @Autowired
-    private UploadProperties uploadProperties;
+    private UserUploadProperties uploadProperties;
 
     private Path uploadDirectory;
 
@@ -79,4 +79,16 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public ResponseEntity<Response> findUserById(long id) {
+        User user = userRepo.findById(id);
+        if(user != null && user.getId() > 0){
+            Response response = new Response(true, user, HttpStatus.OK.value());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new Response(false, "User with ID: " + id + " not found!", HttpStatus.BAD_REQUEST.value()));
+        }
+    }
 }

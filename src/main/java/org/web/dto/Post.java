@@ -1,5 +1,7 @@
 package org.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -13,23 +15,27 @@ public class Post {
     private long id;
     @Column(unique = true, nullable = false)
     private String title;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String content;
     private String picture;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User createdBy;
     private Date createdOn;
     private Date updatedOn;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
     @OneToMany(mappedBy = "post")
+    @JsonIgnore
     private List<Comment> comments;
     @ManyToMany
     @JoinTable(name = "post_tag",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JsonIgnore
     private Set<Tag> tags;
 
     public long getId() {
@@ -110,5 +116,21 @@ public class Post {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", picture='" + picture + '\'' +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", updatedOn=" + updatedOn +
+                ", category=" + category +
+                ", comments=" + comments +
+                ", tags=" + tags +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package org.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +21,11 @@ public class User {
     private String bio;
     private String profilePicture;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> comments;
     @OneToMany(mappedBy = "createdBy")
-    private List<Post> createdBy;
+    @JsonIgnore
+    private List<Post> posts;
     private Date createdOn;
     private Date updatedOn;
 
@@ -82,11 +86,11 @@ public class User {
     }
 
     public List<Post> getCreatedBy() {
-        return createdBy;
+        return posts;
     }
 
-    public void setCreatedBy(List<Post> createdBy) {
-        this.createdBy = createdBy;
+    public void setCreatedBy(List<Post> posts) {
+        this.posts = posts;
     }
 
     public Date getCreatedOn() {
@@ -103,5 +107,21 @@ public class User {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", bio='" + bio + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", comments=" + comments +
+                ", posts=" + posts +
+                ", createdOn=" + createdOn +
+                ", updatedOn=" + updatedOn +
+                '}';
     }
 }
